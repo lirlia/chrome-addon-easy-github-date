@@ -18,7 +18,7 @@ jobs:
         # https://github.com/cardinalby/webext-buildtools-pack-extension-dir-action/releases/tag/1.0.6
         uses: cardinalby/webext-buildtools-pack-extension-dir-action@635487254f109b2cf3c3efb8fd81b4a7bb848974
         with:
-          extensionDir: "."
+          extensionDir: "./addon"
           zipFilePath: "build/my-extension.zip"
 
         # https://github.com/cardinalby/webext-buildtools-chrome-crx-action/releases/tag/2.0.0
