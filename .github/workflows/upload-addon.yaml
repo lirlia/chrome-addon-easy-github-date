@@ -1,0 +1,36 @@
+name: crx artifacts to release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        # https://github.com/actions/checkout/releases/tag/v2.4.0
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+
+      - name: packExtensionDir
+        # https://github.com/cardinalby/webext-buildtools-pack-extension-dir-action/releases/tag/1.0.6
+        uses: cardinalby/webext-buildtools-pack-extension-dir-action@635487254f109b2cf3c3efb8fd81b4a7bb848974
+        with:
+          extensionDir: "."
+          zipFilePath: "build/my-extension.zip"
+
+        # https://github.com/cardinalby/webext-buildtools-chrome-crx-action/releases/tag/2.0.0
+      - name: upload addon
+        uses: cardinalby/webext-buildtools-chrome-crx-action@6ffc20d012116ea3fa0c6697382b026fc7df9535
+        with:
+          zipFilePath: "build/my-extension.zip"
+          crxFilePath: "build/my-extension.crx"
+          privateKey: ${{ secrets.CHROME_CRX_PRIVATE_KEY }},
+
+      - name: Release
+        # https://github.com/softprops/action-gh-release/releases/tag/v0.1.14
+        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
+        with:
+          files: build/my-extension.crx

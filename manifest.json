@@ -1,0 +1,16 @@
+{
+  "name": "easy-github-date",
+  "manifest_version": 3,
+  "version": "0.0.1",
+  "icons": {
+    "16": "icon_16.png",
+    "256": "icon_256.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*"],
+      "js": ["content_scripts.js"]
+    }
+  ],
+  "offline_enabled": true
+}
